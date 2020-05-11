@@ -38,7 +38,30 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+
+        # Define the queue and initialize the starting vertex
+        q = Queue()
+        q.enqueue(starting_vertex)
+
+        # Keep track of visited nodes
+        visited = set()
+
+        # Repeat until queue is empty
+        while q.size() > 0:
+
+            # Dequeue first vertex i.e: remove from queue
+            vertex = q.dequeue()
+
+            # Have we visited the vertex yet? If not then visit it.
+            if vertex not in visited:
+                print(vertex)
+
+                # Add visited vertex to visited list
+                visited.add(vertex)
+
+                # Do this for all vertices in the queue
+                for next_vert in self.get_neighbors(vertex):
+                    q.enqueue(next_vert)
 
     def dft(self, starting_vertex):
         """
