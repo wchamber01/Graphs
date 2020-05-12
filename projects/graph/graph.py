@@ -115,7 +115,17 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        s = Stack()
+        s.push(starting_vertex)
+        print(starting_vertex)
+        visited = set()
+
+        while s.size() > 0:
+            vertex = s.pop()
+            if vertex not in visited:
+                print(visited)
+                visited.add(vertex)
+        return visited
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -123,8 +133,17 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        s = Stack()
+        s.push(starting_vertex)
+        print(starting_vertex)
+        visited = set()
 
-        pass  # TODO
+        while s.size() > 0:
+            vertex = s.pop()
+            if vertex not in visited:
+                print(visited)
+                visited.add(vertex)
+        return visited
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
