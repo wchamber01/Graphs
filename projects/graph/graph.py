@@ -115,16 +115,19 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        s = Stack()
-        s.push(starting_vertex)
+        q = Queue()
+        q.enqueue(starting_vertex)
         print(starting_vertex)
+
         visited = set()
 
-        while s.size() > 0:
-            vertex = s.pop()
+        while q.size() > 0:
+            vertex = q.dequeue()
             if vertex not in visited:
-                print(visited)
                 visited.add(vertex)
+                print(vertex)
+                for next_vert in self.get_neighbors(vertex):
+                    q.enqueue(next_vert)
         return visited
 
     def dfs(self, starting_vertex, destination_vertex):
