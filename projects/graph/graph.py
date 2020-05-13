@@ -117,20 +117,23 @@ class Graph:
         breath-first order.
         """
         q = Queue()
-        q.enqueue(starting_vertex)
+        vertex = [starting_vertex]
+        q.enqueue(vertex)
 
         visited = set()
 
         while q.size() > 0:
-            vertex = q.dequeue()
-            if vertex == destination_vertex:
-                break
-                # print(vertex)
-                for next_vert in self.get_neighbors(vertex):
-                    q.enqueue(next_vert)
-                    visited.add(vertex)
+            path = q.dequeue()
+            path_end = path[-1]
+            if path_end == destination_vertex:
+                return path
+            if path_end not in visited:
+                visited.add(path_end)
+                for neighbor in self.get_neighbors(path_end):
+                    q.enqueue(path + [neighbor])
+                    # visited.add(vertex)
                 # return next_vert
-        return visited
+        return None
 
     def dfs(self, starting_vertex, destination_vertex):
         """
