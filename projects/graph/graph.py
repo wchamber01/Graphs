@@ -73,6 +73,7 @@ class Graph:
         s.push(starting_vertex)
 
         # Keep track of visited nodes
+        # visited = {starting_vertex}
         visited = set()
 
         # Repeat until stack is empty
@@ -80,15 +81,15 @@ class Graph:
 
             # Pop first vertex - remove from stack
             vertex = s.pop()
+            # print(vertex)
 
             # Have we visited the vertex yet? If not then visit it.
             if vertex not in visited:
-                print(visited)
+                print(vertex)
                 # Add visited to visited list
                 visited.add(vertex)
-
                 # Do this for all vertices in the stack
-                for next_vert in self.get_neighbors(vertex):
+                for next_vert in self.vertices[vertex]:
                     s.push(next_vert)
 
     def dft_recursive(self, starting_vertex, visited=None):
@@ -117,17 +118,18 @@ class Graph:
         """
         q = Queue()
         q.enqueue(starting_vertex)
-        print(starting_vertex)
 
         visited = set()
 
         while q.size() > 0:
             vertex = q.dequeue()
-            if vertex not in visited:
-                visited.add(vertex)
-                print(vertex)
+            if vertex == destination_vertex:
+                break
+                # print(vertex)
                 for next_vert in self.get_neighbors(vertex):
                     q.enqueue(next_vert)
+                    visited.add(vertex)
+                # return next_vert
         return visited
 
     def dfs(self, starting_vertex, destination_vertex):
@@ -138,14 +140,13 @@ class Graph:
         """
         s = Stack()
         s.push(starting_vertex)
-        print(starting_vertex)
         visited = set()
 
         while s.size() > 0:
             vertex = s.pop()
             if vertex not in visited:
-                print(visited)
                 visited.add(vertex)
+            return vertex
         return visited
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
