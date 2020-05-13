@@ -142,15 +142,20 @@ class Graph:
         depth-first order.
         """
         s = Stack()
-        s.push(starting_vertex)
+        path = [starting_vertex]
+        s.push(path)
         visited = set()
 
         while s.size() > 0:
             vertex = s.pop()
-            if vertex not in visited:
-                visited.add(vertex)
-            return vertex
-        return visited
+            end = vertex[-1]
+            if end == destination_vertex:
+                return vertex
+            if end not in visited:
+                visited.add(end)
+                for neighbor in self.vertices[end]:
+                    s.push(vertex + [neighbor])
+        return None
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
