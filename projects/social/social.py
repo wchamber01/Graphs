@@ -61,6 +61,7 @@ class SocialGraph:
         # is smaller than the second
         for user_id in self.users:
             for friend_id in range(user_id + 1, self.last_id + 1):
+                # print(range(user_id + 1, self.last_id + 1))
                 possible_friendships.append((user_id, friend_id))
 
         # Shuffle the possible friendships
@@ -84,13 +85,37 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         q = Queue()
-        q.enqueue([user_id])
+        starting_person = user_id
+        q.enqueue([starting_person])
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
-        starting_user = user_id
-        print('starting_user:', starting_user)
-        for friend in self.friendships[starting_user]:
-            print(friend)
+
+        # Repeat until queue is empty
+        while q.size() > 0:
+
+            # Dequeue first person i.e: remove from queue
+            person = q.dequeue()  # This is my path
+            # print('person:', person)
+            # Grab the last person (vertex) from the path and set it to our current_person
+            current_person = person[-1]
+            # print('current:', current_person)
+
+            # Have we visited the person yet? If not then visit it.
+            if current_person not in visited:
+                # print('visited:', visited)
+
+                # Set currently visited person to the person position currently at
+                visited[current_person] = person
+
+            # For each friend of the starting_person...
+            for friend in self.friendships[current_person]:
+                # If the friend has not been visited yet...
+                if friend not in visited:
+                    # Make a *copy* of person
+                    next_person = list(person)
+                    # Add current friend to next_person
+                    next_person.append(friend)
+                    # Make this friend the next starting_person
+                    q.enqueue(next_person)
 
         return visited
 
